@@ -85,49 +85,157 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Create Record</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
+      .wrapper {
+        width: 600px;
+        margin: 0 auto;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="mt-5">Create Record</h2>
-                    <p>Please fill this form and submit to add employee record to the database.</p>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea name="address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>"><?php echo $address; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $address_err; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Salary</label>
-                            <input type="text" name="salary" class="form-control <?php echo (!empty($salary_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $salary; ?>">
-                            <span class="invalid-feedback"><?php echo $salary_err; ?></span>
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
-                    </form>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="mt-5">Create Record</h2>
+            <p>
+              Please fill this form and submit to add employee record to the
+              database.
+            </p>
+            <!--<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">-->
+            <form>
+              " method="post">
+              <div class="form-group">
+                <label>Event Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>"
+                  value="Enter Event Name"
+                  required
+                />
+                <!-- add inside input later:
+                  value="<?php echo $name; ?>" 
+                -->
+                <span class="invalid-feedback"><?php echo $name_err; ?></span>
+              </div>
+              <div class="form-group">
+                <label>Event Description</label>
+                <textarea
+                  name="address"
+                  class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>"
+                  required
+                >
+                </textarea>
+                <!--add inside text area later:
+                  <?php echo $address; ?>
+                -->
+                <span class="invalid-feedback"
+                  ><?php echo $address_err; ?></span
+                >
+              </div>
+              <label>Event Type</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >Options</label
+                  >
                 </div>
-            </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                  <option selected>Choose...</option>
+                  <option value="1">Curricular</option>
+                  <option value="2">Extracurricular</option>
+                  <option value="3">Outreach</option>
+                  <option value="4">Others</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Date of Event</label>
+                <input type="date" name="date" id="date" required />
+              </div>
+              <div class="form-group">
+                <label>Start Time</label>
+                <input
+                  type="time"
+                  id="appt"
+                  name="appt"
+                  min="09:00"
+                  max="18:00"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>End Time</label>
+                <input
+                  type="time"
+                  id="appt"
+                  name="appt"
+                  min="09:00"
+                  max="18:00"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Venue</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>"
+                  value="Enter Event Name"
+                />
+                <!-- add inside input later:
+                  value="<?php echo $name; ?>" 
+                -->
+                <span class="invalid-feedback"><?php echo $name_err; ?></span>
+              </div>
+              <div class="form-group">
+                <label>Registration Fee</label>
+                <input
+                  type="text"
+                  name="salary"
+                  class="form-control <?php echo (!empty($salary_err)) ? 'is-invalid' : ''; ?>"
+                /><!-- add in input later
+                  value="<?php echo $salary; ?>"-->
+                <span class="invalid-feedback"><?php echo $salary_err; ?></span>
+              </div>
+              <div class="form-group">
+                <label>Officer-In-Charge</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>"
+                  value="Enter Event Name"
+                />
+                <!-- add inside input later:
+                  value="<?php echo $name; ?>" 
+                -->
+                <span class="invalid-feedback"><?php echo $name_err; ?></span>
+              </div>
+              <!--<div class="form-group">
+                <label>Salary</label>
+                <input
+                  type="text"
+                  name="salary"
+                  class="form-control <?php echo (!empty($salary_err)) ? 'is-invalid' : ''; ?>"
+                  value="<?php echo $salary; ?>"
+                />
+                <span class="invalid-feedback"><?php echo $salary_err; ?></span>
+              </div>-->
+              <input type="submit" class="btn btn-primary" value="Submit" />
+              <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
