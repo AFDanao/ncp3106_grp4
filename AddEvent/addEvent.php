@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "config.php";
+require_once "../config.php";
 
 /* 
     EVENT CREATION 
@@ -17,6 +17,7 @@ require_once "config.php";
     - Other needed fields
 */ 
 // Define variables and initialize with empty values
+// Once another form is submitted it initializes empty values again
 $name = $address = $salary = "";
 $name_err = $address_err = $salary_err = "";
 
@@ -24,9 +25,17 @@ $name_err = $address_err = $salary_err = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
     $input_name = trim($_POST["name"]);
+    /*  
+        $_POST["var"] - used to get data from POST method 
+        
+        trim() - removes unnecessary spaces from beginning and  end of string
+    */
     if (empty($input_name)) {
+      //  empty() - determines if variable is empty
         $name_err = "Please enter a name.";
     } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+      /*  filter_var() - outputs false if it does not pass validation that's why we use logical NOT (!) for the condition to be true and execute its respective code
+      */
         $name_err = "Please enter a valid name.";
     } else {
         $name = $input_name;
@@ -45,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($input_salary)) {
         $salary_err = "Please enter the salary amount.";
     } elseif (!ctype_digit($input_salary)) {
+      /*  ctype_digit() - is used to check if input are numeric; outputs false if it doesn't pass validation. For that reason, logical NOT (!) is used for the condition to be true */
         $salary_err = "Please enter a positive integer value.";
     } else {
         $salary = $input_salary;
@@ -106,26 +116,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <h2 class="mt-5">Create Record</h2>
+            <h2 class="mt-5">Create Event</h2>
             <p>
-              Please fill this form and submit to add employee record to the
-              database.
+            Please ensure that all data fields for the event are completed before submitting them for recording in the database.
             </p>
-            <!--<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">-->
-            <form>
-              " method="post">
-              <div class="form-group">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="form-group">
                 <label>Event Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>"
-                  value="Enter Event Name"
-                  required
-                />
-                <!-- add inside input later:
-                  value="<?php echo $name; ?>" 
-                -->
+                <input type="text" name="name" placeholder="Enter Event Name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
+                <!--  adds "is-invalid" class to the input if there is error (outlines the field red)  -->
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
               </div>
               <div class="form-group">
