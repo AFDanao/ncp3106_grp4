@@ -151,10 +151,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <select class="custom-select" id="inputGroupSelect01">
                   <option selected>Choose...</option>
-                  <option value="1">Curricular</option>
-                  <option value="2">Extracurricular</option>
-                  <option value="3">Outreach</option>
-                  <option value="4">Others</option>
+                  <option value="Curricular">Curricular</option>
+                  <option value="Extracurricular">Extracurricular</option>
+                  <option value="Outreach">Outreach</option>
+                  <option value="Others">Others</option>
                 </select>
               </div>
               <div class="form-group">
