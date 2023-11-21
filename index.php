@@ -1,4 +1,5 @@
 <?php
+$error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the entered username and password from the form
@@ -8,8 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Define the default username and password
     $defaultUsername = "admin";
     $defaultPassword = "admin";
-
-    $error = "";
 
     // Check if the entered username and password match the default values
     if ($enteredUsername === $defaultUsername && $enteredPassword === $defaultPassword) {
