@@ -173,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             Please ensure that all data fields for the event are completed before submitting them for recording in the database.
             </p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-            <!-- Event Name -->
+              <!-- Event Name -->
               <div class="form-group">
                 <label>Event Name</label>
                 <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>" >
@@ -277,9 +277,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="invalid-feedback"><?php echo $officer_err; ?></span>
               </div>
 
-            <!-- Submit Button -->
-              <input type="submit" class="btn btn-primary" value="Submit" />
-              <a href="../select.php" class="btn btn-secondary ml-2">Cancel</a>
+              <!-- Submit Button -->
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6"><input type="submit" class="btn btn-primary btn-block" value="Submit" /></div>
+                  <div class="col-md-6"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
+                </div>
+              </div>
             </form>
           </div>
         </div>

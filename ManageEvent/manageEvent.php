@@ -2,7 +2,7 @@
 
 require_once "../config.php";
 
-$name = $des = $type = $date = $start_time = $end_time = $venue = $fee = $officer = "";
+$name = $des = $type = $date = $start_time = $end_time = $venue = $fee = $officer = $id = "";
 $name_err = $des_err = $type_err = $date_err = $start_time_err = $end_time_err = $venue_err = $fee_err = $officer_err = "";
 
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
@@ -179,6 +179,10 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
       width: 450px;
       margin: 0 auto;
     }
+
+    ::-webkit-scrollbar {
+      width: 0;
+    }
   </style>
   <script>
     $(document).ready(function() {
@@ -352,10 +356,13 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                   />
                   <span class="invalid-feedback"><?php echo $officer_err; ?></span>
                 </div>
-                <input type="hidden" name="id" value=<?php echo $id ? $id : ''; ?>>
-
-                <input type="submit" class="btn btn-primary" value="Submit" />
-                <a href="../select.php" class="btn btn-secondary ml-2">Cancel</a>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6"><input type="submit" class="btn btn-primary btn-block" value="Submit" /></div>
+                    <div class="col-md-6"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
+                  </div>
+                </div>
+                <input type="hidden" name="id" value=<?php echo $id; ?>>
               </form>
             </div>
           </div>
