@@ -18,8 +18,19 @@ require_once "../config.php";
 */ 
 // Define variables and initialize with empty values
 // Once another form is submitted it initializes empty values again
-$name = $des = $type = $date = $start_time = $end_time = $venue = $fee = $officer = "";
-$name_err = $des_err = $type_err = $date_err = $start_time_err = $end_time_err = $venue_err = $fee_err = $officer_err = "";
+$id = $name = $des = $type = $date = $start_time = $end_time = $venue = $fee = $officer = "";
+$id_err = $name_err = $des_err = $type_err = $date_err = $start_time_err = $end_time_err = $venue_err = $fee_err = $officer_err = "";
+
+function getV() {
+  $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  $v = "";
+  for ($i = 0; $i < 7; $i++) {
+    $index = rand(0, strlen($characters) - 1);
+    $v .= $characters[$index];
+  }
+
+  return $v;
+}
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -108,14 +119,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check input errors before inserting in database
     if (empty($name_err) && empty($des_err) && empty($type_err) && empty($date_err) && empty($start_time_err) && empty($end_time_err) && empty($venue_err) && empty($fee_err) && empty($officer_err)) {
+        $sql = 'SELECT id FROM events ORDER BY id DESC LIMIT 1';
+        if ($result = $mysqli->query($sql)) {
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $id = $row['id'] +  1;
+            }
+          } else {
+            $id = 1;
+          }
+        } else {
+          echo "Oops! Something went wrong. Please try again later.";
+        }
+
         // Prepare an insert statement
-        $sql = "INSERT INTO events (name, des, type, date, start_time, end_time, venue, fee, officer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO events (id, name, des, type, date, start_time, end_time, venue, fee, officer, v) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sssssssis", $param_name, $param_des, $param_type, $param_date, $param_start_time, $param_end_time, $param_venue, $param_fee, $param_officer);
+            $stmt->bind_param("isssssssiss", $param_id, $param_name, $param_des, $param_type, $param_date, $param_start_time, $param_end_time, $param_venue, $param_fee, $param_officer, $param_v);
 
             // Set parameters
+            $param_id = $id;
             $param_name = $name;
             $param_des = $des;
             $param_type = $type;
@@ -125,6 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_venue = $venue;
             $param_fee = $fee;
             $param_officer = $officer;
+            $param_v = getV();
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
