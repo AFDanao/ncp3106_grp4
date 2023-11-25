@@ -2,11 +2,11 @@
 
 require_once "../config.php";
 
-$name = $des = $type = $date = $start_time = $end_time = $venue = $fee = $officer = $id = "";
+$name = $des = $type = $date = $start_time = $end_time = $venue = $fee = $officer = $v = "";
 $name_err = $des_err = $type_err = $date_err = $start_time_err = $end_time_err = $venue_err = $fee_err = $officer_err = "";
 
-if (isset($_POST["id"]) && !empty($_POST["id"])) {
-  $id = $_POST["id"];
+if (isset($_POST["v"]) && !empty($_POST["v"])) {
+  $v = $_POST["v"];
 
   $input_name = trim($_POST["name"]);
   if (empty($input_name)) {
@@ -78,11 +78,11 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
   // Check input errors before inserting in database
   if (empty($name_err) && empty($des_err) && empty($type_err) && empty($date_err) && empty($start_time_err) && empty($end_time_err) && empty($venue_err) && empty($fee_err) && empty($officer_err)) {
     // Prepare an insert statement
-    $sql = "UPDATE events SET name=?, des=?, type=?, date=?, start_time=?, end_time=?, venue=?, fee=?, officer=? WHERE id=?";
+    $sql = "UPDATE events SET name=?, des=?, type=?, date=?, start_time=?, end_time=?, venue=?, fee=?, officer=? WHERE v=?";
 
     if ($stmt = $mysqli->prepare($sql)) {
       // Bind variables to the prepared statement as parameters
-      $stmt->bind_param("sssssssisi", $param_name, $param_des, $param_type, $param_date, $param_start_time, $param_end_time, $param_venue, $param_fee, $param_officer, $param_id);
+      $stmt->bind_param("sssssssiss", $param_name, $param_des, $param_type, $param_date, $param_start_time, $param_end_time, $param_venue, $param_fee, $param_officer, $param_v);
 
       // Set parameters
       $param_name = $name;
@@ -94,7 +94,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
       $param_venue = $venue;
       $param_fee = $fee;
       $param_officer = $officer;
-      $param_id = $id;
+      $param_v = $v;
 
       // Attempt to execute the prepared statement
       if ($stmt->execute()) {
@@ -114,14 +114,14 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
   // Close connection
   $mysqli->close();
 } else {
-  if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-    $id = trim($_GET["id"]);
+  if (isset($_GET["v"]) && !empty(trim($_GET["v"]))) {
+    $v = trim($_GET["v"]);
 
-    $sql = "SELECT * FROM events WHERE id = ?";
+    $sql = "SELECT * FROM events WHERE v = ?";
     if ($stmt = $mysqli->prepare($sql)) {
-      $stmt->bind_param("i", $param_id);
+      $stmt->bind_param("s", $param_v);
 
-      $param_id = $id;
+      $param_v = $v;
 
       if ($stmt->execute()) {
         $result = $stmt->get_result();
@@ -164,6 +164,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <title>Manage Event</title>
   <style>
     body {
@@ -171,7 +172,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     }
 
     .wrapper {
-      width: 900px;
+      width: 1100px;
       margin: 0 auto;
     }
 
@@ -200,47 +201,113 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
               <div class="mt-5 mb-3 clearfix">
                 <h2 class="pull-left">Event Details</h2>
               </div>
-              <?php
-                require_once "../config.php";
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a href="#events" class="nav-link active" data-bs-toggle="tab">Events</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#participants" class="nav-link" data-bs-toggle="tab">Participants</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="events">
+                  <br>
+                  <?php
+                    require_once "../config.php";
 
-                $sql = "SELECT * FROM events";
-                if ($result = $mysqli->query($sql)) {
-                  if ($result->num_rows > 0) {
-                    echo "<table class='table table-bordered table-stiped'>";
-                    echo "<thread>";
-                    echo "<tr>";
-                    echo "<th>#</th>";
-                    echo "<th>Name</th>";
-                    echo "<th>Description</th>";
-                    echo "<th>Officer</th>";
-                    echo "<th>Action</th>";
-                    echo "</tr>";
-                    echo "</thead>";
-                    echo "<tbody>";
-                    while ($row = $result->fetch_assoc()) {
-                      echo "<tr>";
-                      echo "<td>" . $row['id'] . "</td>";
-                      echo "<td>" . $row['name'] . "</td>";
-                      echo "<td>" . $row['des'] . "</td>";
-                      echo "<td>" . $row['officer'] . "</td>";
-                      echo "<td>";
-                      echo '<a href="manageEvent.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                      echo '<a href="manageEvent.php?id=' . $row['id'] . '" class="mr-3" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                      echo "</td>";
-                      echo "</tr>";
+                    $sql = "SELECT * FROM events ORDER BY events . id ASC";
+                    if ($result = $mysqli->query($sql)) {
+                      if ($result->num_rows > 0) {
+                        echo "<table class='table table-bordered table-stiped'>";
+                        echo "<thread>";
+                        echo "<tr>";
+                        echo "<th>#</th>";
+                        echo "<th>Name</th>";
+                        echo "<th>Description</th>";
+                        echo "<th>Officer</th>";
+                        echo "<th>Action</th>";
+                        echo "</tr>";
+                        echo "</thead>";
+                        echo "<tbody>";
+                        while ($row = $result->fetch_assoc()) {
+                          echo "<tr>";
+                          echo "<td>" . $row['id'] . "</td>";
+                          echo "<td>" . $row['name'] . "</td>";
+                          echo "<td>" . $row['des'] . "</td>";
+                          echo "<td>" . $row['officer'] . "</td>";
+                          echo "<td>";
+                          echo '<a href="manageEvent.php?v=' . $row['v'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                          echo '<a href="deleteEvent.php?v=' . $row['v'] . '" class="mr-3" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                          echo "</td>";
+                          echo "</tr>";
+                        }
+                        echo "</tbody>";
+                        echo "</table>";
+                        $result->free();
+                      } else {
+                        echo '<div class="alert alert-danger"><em>No records found.</em></div>';
+                      }
+                    } else {
+                      echo "Oops! Something went wrong. Please try again later.";
                     }
-                    echo "</tbody>";
-                    echo "</table>";
-                    $result->free();
-                  } else {
-                    echo '<div class="alert alert-danger"><em>No records found.</em></div>';
-                  }
-                } else {
-                  echo "Oops! Something went wrong. Please try again later.";
-                }
 
-                // $mysqli->close();
-              ?>
+                    // $mysqli->close();
+                  ?>
+                </div>
+                <div class="tab-pane fade" id="participants">
+                  <br>
+                  <form action="report.php" method="post">
+                    <center>
+                      <button type="button" name="register" class="btn btn-light w-100 shadow-sm" value="Home" onclick="document.location.href='../AddStudent/addParticipant.php?v=<?php echo $v?>'">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="widt:1.2rem; height:1rem;">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                        </svg>
+                        Register
+                      </button>
+                    </center>
+                    <br>
+                  </form>
+
+                  <?php
+                    require_once "../config.php";
+
+                    $sql = "SELECT * FROM participants WHERE event_name='$name' ORDER BY time_in";
+                    if ($result = $mysqli->query($sql)) {
+                      if ($result->num_rows > 0) {
+                        echo "<table class='table table-bordered table-striped'>";
+                        echo "<thread>";
+                        echo "<tr>";
+                        echo "<th>Last Name</th>";
+                        echo "<th>First Name</th>";
+                        echo "<th>Middle Initial</th>";
+                        echo "<th>Student Number</th>";
+                        echo "<th>Time In</th>";
+                        echo "</tr>";
+                        echo "</thread>";
+                        echo "<tbody>";
+                        while ($row = $result->fetch_assoc()) {
+                          echo "<tr>";
+                          echo "<td>" . $row['last_name'] . "</td>";
+                          echo "<td>" . $row['first_name'] . "</td>";
+                          echo "<td>" . $row['middle_initial'] . "</td>";
+                          echo "<td>" . $row['student_number'] . "</td>";
+                          echo "<td>" . $row['time_in'] . "</td>";
+                          echo "</tr>";
+                        }
+                        echo "</tbody>";
+                        echo "</table>";
+                        $result->free();
+                      } else {
+                        echo '<div class="alert alert-danger"><em>No records found.</em></div>';
+                      }
+                    } else {
+                      echo "Oops! Something went wrong. Please try again later.";
+                    }
+  
+                    $mysqli->close();
+                  ?>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -268,20 +335,20 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                     name="des"
                     class="form-control <?php echo (!empty($des_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $des; ?>"
-                  ></textarea>
+                  ><?php echo $des; ?></textarea>
                   <span class="invalid-feedback"
                     ><?php echo $des_err; ?></span
                   >
                 </div>
 
                 <!-- Event Type -->
-                <label>Event Type</label>
+                <label>Event Type <span class="text-muted">(Currently Selected: <?php echo $type; ?>)</span></label>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">Options</label>
                   </div>
                   <select class="custom-select form-control <?php echo (!empty($type_err)) ? 'is-invalid' : ''; ?>" id="inputGroupSelect01" name="type">
-                    <option selected value="">Choose...</option>
+                    <option selected value="<?php echo $type; ?>">Choose...</option>
                     <option value="Curricular">Curricular</option>
                     <option value="Extracurricular">Extracurricular</option>
                     <option value="Outreach">Outreach</option>
@@ -362,7 +429,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                     <div class="col-md-6"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
                   </div>
                 </div>
-                <input type="hidden" name="id" value=<?php echo $id; ?>>
+                <input type="hidden" name="v" value=<?php echo $v; ?>>
               </form>
             </div>
           </div>

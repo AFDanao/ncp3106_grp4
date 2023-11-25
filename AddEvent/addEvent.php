@@ -186,6 +186,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         width: 600px;
         margin: 0 auto;
       }
+
+      ::-webkit-scrollbar {
+        width: 0;
+      }
     </style>
   </head>
   <body>

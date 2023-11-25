@@ -111,7 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <style>
     body {
       background-color: #f4f4f4;
-      /* overflow: hidden; */
     }
 
     .wrapper {
@@ -121,6 +120,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     .ast {
       color: rgba(255, 0, 0, 100);
+    }
+
+    ::-webkit-scrollbar {
+      width: 0;
     }
   </style>
 </head>
