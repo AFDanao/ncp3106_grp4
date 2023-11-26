@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $param_contact_number = $contact_number;
 
       if ($stmt->execute()) {
-        header("location: index.php");
+        header("location: ../index.php");
         exit();
       } else {
         echo "Oops! Something went wrong. Please try again later.";
