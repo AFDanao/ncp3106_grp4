@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Invalid username or password. Please try again.";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -95,6 +95,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .small-text {
             font-size: small;
         }
+
+        .btn-custom {
+             background-color: black;
+             color: white;
+        }
+        .password-eye {
+        position: absolute;
+        right: 1px;
+        top: 55%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        }
+        .input-group-text {
+        background-color: transparent;
+        border: none;
+       }
     </style>
 </head>
 <body>
@@ -107,7 +123,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" placeholder="Enter your password" name="password" required>
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Enter your password" name="password" id="password" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text password-eye" onclick="togglePasswordVisibility()">
+                            <i id="eye-icon" class="fa fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="form-check">
@@ -115,9 +138,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label class="form-check-label small-text" for="remember">Remember Me</label>
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-custom">Login</button>
             <span><?php echo $error ?></span>
         </form>
     </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var eyeIcon = document.getElementById("eye-icon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </body>
 </html>
+
