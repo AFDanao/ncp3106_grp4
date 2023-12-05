@@ -125,6 +125,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ::-webkit-scrollbar {
       width: 0;
     }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   </style>
 </head>
 <body>
@@ -206,8 +211,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
               <div class="row">
-                <div class="col-md-6"><input type="submit" value="Submit" class="btn btn-primary btn-block"></div>
-                <div class="col-md-6"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
+                <div class="col-md-6 my-1"><input type="submit" value="Submit" class="btn btn-primary btn-block"></div>
+                <div class="col-md-6 my-1"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
               </div>
             </div>
           </form>

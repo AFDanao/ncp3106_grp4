@@ -187,8 +187,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         margin: 0 auto;
       }
 
+      .ast {
+        color: rgba(255, 0, 0, 100);
+      }
+
       ::-webkit-scrollbar {
         width: 0;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+        max-height: 200px;
+      }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
       }
     </style>
   </head>
@@ -205,7 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
               <!-- Event Name -->
               <div class="form-group">
-                <label>Event Name</label>
+                <label>Event Name<span class="ast">*</span></label>
                 <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>" >
                 <!--  adds "is-invalid" class to the input if there is error (outlines the field red)  -->
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
@@ -213,19 +228,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <!-- Event desription -->
               <div class="form-group">
-                <label>Event desription</label>
+                <label>Event Description<span class="ast">*</span></label>
                 <textarea
                   name="des"
                   class="form-control <?php echo (!empty($des_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $des; ?>"
-                >
-                </textarea>
+                ></textarea>
                 <span class="invalid-feedback"
                   ><?php echo $des_err; ?></span
                 >
               </div>
 
               <!-- Event Type -->
-              <label>Event Type</label>
+              <label>Event Type<span class="ast">*</span></label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">Options</label>
@@ -242,14 +256,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <!-- Date of Event -->
               <div class="form-group">
-                <label>Date of Event</label>
+                <label>Date of Event<span class="ast">*</span></label>
                 <input class="form-control <?php echo (!empty($date_err)) ? 'is-invalid' : ''; ?>" type="date" name="date" id="date" value="<?php echo $date; ?>"/>
                 <span class="invalid-feedback"><?php echo $date_err; ?></span>
               </div>
 
               <!-- Start Time -->
               <div class="form-group">
-                <label>Start Time</label>
+                <label>Start Time<span class="ast">*</span></label>
                 <input class="form-control <?php echo (!empty($start_time_err)) ? 'is-invalid' : ''; ?>"
                   type="time"
                   id="start_time"
@@ -263,7 +277,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <!-- End Time -->
               <div class="form-group">
-                <label>End Time</label>
+                <label>End Time<span class="ast">*</span></label>
                 <input class="form-control <?php echo (!empty($end_time_err)) ? 'is-invalid' : ''; ?>"
                   type="time"
                   id="end_time"
@@ -277,7 +291,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <!-- Venue -->
               <div class="form-group">
-                <label>Venue</label>
+                <label>Venue<span class="ast">*</span></label>
                 <input
                   type="text"
                   name="venue"
@@ -287,7 +301,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <!-- Registration Fee -->
               <div class="form-group">
-                <label>Registration Fee</label>
+                <label>Registration Fee<span class="ast">*</span></label>
                 <input
                   type="number"
                   name="fee"
@@ -298,7 +312,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               <!-- Officer-In-Charge -->
               <div class="form-group">
-                <label>Officer-In-Charge</label>
+                <label>Officer-In-Charge<span class="ast">*</span></label>
                 <input
                   type="text"
                   name="officer"
@@ -310,8 +324,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <!-- Submit Button -->
               <div class="form-group">
                 <div class="row">
-                  <div class="col-md-6"><input type="submit" class="btn btn-primary btn-block" value="Submit" /></div>
-                  <div class="col-md-6"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
+                  <div class="col-md-6 my-1"><input type="submit" class="btn btn-primary btn-block" value="Submit" /></div>
+                  <div class="col-md-6 my-1"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
                 </div>
               </div>
             </form>

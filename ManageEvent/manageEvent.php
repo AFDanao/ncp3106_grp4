@@ -172,7 +172,7 @@ if (isset($_POST["v"]) && !empty($_POST["v"])) {
     }
 
     .wrapper {
-      width: 1100px;
+      width: 80vw;
       margin: 0 auto;
     }
 
@@ -183,6 +183,17 @@ if (isset($_POST["v"]) && !empty($_POST["v"])) {
 
     ::-webkit-scrollbar {
       width: 0;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      max-height: 200px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
     }
   </style>
   <script>
@@ -274,7 +285,7 @@ if (isset($_POST["v"]) && !empty($_POST["v"])) {
                     $sql = "SELECT * FROM participants WHERE event_name='$name' ORDER BY time_in";
                     if ($result = $mysqli->query($sql)) {
                       if ($result->num_rows > 0) {
-                        echo "<table class='table table-bordered table-striped'>";
+                        echo "<table class='table table-bordered'>";
                         echo "<thread>";
                         echo "<tr>";
                         echo "<th>Last Name</th>";
@@ -425,8 +436,8 @@ if (isset($_POST["v"]) && !empty($_POST["v"])) {
                 </div>
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-md-6"><input type="submit" class="btn btn-primary btn-block" value="Submit" /></div>
-                    <div class="col-md-6"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
+                    <div class="col-md-6 my-1"><input type="submit" class="btn btn-primary btn-block" value="Submit" /></div>
+                    <div class="col-md-6 my-1"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
                   </div>
                 </div>
                 <input type="hidden" name="v" value=<?php echo $v; ?>>

@@ -6,10 +6,8 @@ $time = date("H:i:s");
 
 <?php
   require_once "../config.php";
-
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['student_number'] == "") {
-    } else if ($_POST['student_number'] != "") {
+    if ($_POST['student_number'] != "") {
       $sql = "SELECT * FROM students WHERE student_number='$_POST[student_number]'";
       if ($result = $mysqli->query($sql)) {
         if ($result->num_rows > 0) {
@@ -54,26 +52,6 @@ $time = date("H:i:s");
             // $stmt->close();
           }
         }
-      } else {
-        echo "Oops! Something went wrong. Please try again later.";
-      }
-    }
-  } else {
-    $sql = "SELECT name FROM events WHERE v = ?";
-    if ($stmt = $mysqli->prepare($sql)) {
-      $stmt->bind_param("s", $param_v);
-
-      $param_v = trim($_GET['v']);
-
-      if ($stmt->execute()) {
-        $result = $stmt->get_result();
-
-        if ($result->num_rows==1) {
-          $row = $result->fetch_array(MYSQLI_ASSOC);
-
-          $name = $row['name'];
-        }
-        $result->free();
       }
     }
   }
@@ -87,12 +65,17 @@ $time = date("H:i:s");
   <title>Add Participants</title>
   <style>
     .wrapper {
-      width: 1000px;
+      width: 90vw;
       margin: 0 auto;
     }
 
     ::-webkit-scrollbar {
       width: 0;
+    }
+
+    .col-md-6 {
+      width: 100vw;
+      margin: 0 auto;
     }
   </style>
   <script>
@@ -105,13 +88,13 @@ $time = date("H:i:s");
   <div class="wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
-          <h4 class="mt-5">Register For Event: <?php echo $name; ?></h4>
+        <div class="col-md-6">
+          <h4 class="mt-5">Register For Event</h4>
           <div class="border-bottom border-2 border-dark mb-4" style="width: 13rem;"></div>
           <form action="<?php echo htmlspecialchars(basename($_SERVER["REQUEST_URI"])); ?>" method="post">
             <div class="mb-3" style="font-size: 22px;">
               <label for="" class="form-label">Student Number</label>
-              <input autofocus style="font-size: 28px;" type="text" name="student_number" class="form-control" required onkeyup="submittheform()" value="<?php if (isset($_POST['student_number'])) echo $_POST['student_number']; ?>">
+              <input autofocus style="font-size: 28px;" type="text" name="student_number" class="form-control <?php echo (!isset($last_name)) ? 'is-invalid' : ''; ?>" required onkeyup="submittheform()" value="<?php if (isset($_POST['student_number'])) echo $_POST['student_number']; ?>">
             </div>
             <div class="d-flex justify-content-between mb-3 small">
               <div style="font-size: 24px; color: black;">
@@ -142,6 +125,9 @@ $time = date("H:i:s");
               <input class="btn btn-light w-100 shadow-sm" id="report" value="View All Attendees" type="button" onclick="document.location.href='../ManageEvent/manageEvent.php?v=<?php echo trim($_GET['v'])?>'">
             </div>
           </form>
+        </div>
+        <div class="col-md-6">
+          <img src="../Images/gcash_danao.png" alt="">
         </div>
       </div>
     </div>
