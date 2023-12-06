@@ -28,9 +28,9 @@
             <div class="col-md-12">
               <h2 class="mt-5">Select Activity</h2>
               <p>Please select an activity.</p>
-              <a href="AddStudent/addStudent.php" class="btn btn-primary btn-block">Add Student</a>
-              <a href="AddEvent/addEvent.php" class="btn btn-primary btn-block">Add Event</a>
-              <a href="ManageEvent/manageEvent.php" class="btn btn-primary btn-block">Manage Event</a>
+              <a href="AddStudent/addStudent.php" class="btn btn-dark btn-block">Add Student</a>
+              <a href="AddEvent/addEvent.php" class="btn btn-dark btn-block">Add Event</a>
+              <a href="ManageEvent/manageEvent.php" class="btn btn-dark btn-block">Manage Event</a>
             </div>
           </div>
         </div>

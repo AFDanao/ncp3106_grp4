@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             font-family: 'Poppins', sans-serif;
             height: 100vh;
-            background-image: linear-gradient(#ffffff, #ff9900);
+            background-image: linear-gradient(#f7dad9, #fb7404);
             margin: 0;
         }
 
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .container {
-            width: 400px; /* Adjust the width as needed */
+            width: 400px; 
             padding: 16px;
             background-color: white;
             border-radius: 10px; 
@@ -81,9 +81,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .img-container {
-            width: 1000px; /* Adjust the width as needed */
+            width: 1000px; 
             max-width: 100%;
-            margin-right: auto; /* Adjust the margin as needed */
+            margin-right: auto;
         }
     </style>
 </head>

@@ -64,8 +64,12 @@ $time = date("H:i:s");
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>Add Participants</title>
   <style>
+    body {
+      height: 90vh;
+    }
     .wrapper {
       width: 90vw;
+      height: 100vh;
       margin: 0 auto;
     }
 
@@ -127,7 +131,9 @@ $time = date("H:i:s");
           </form>
         </div>
         <div class="col-md-6">
-          <img src="../Images/gcash_danao.png" alt="">
+          <div class="container">
+            <img src="../gcash_danao.jpg" alt="" style="height: 500px; width: 500px;">
+          </div>
         </div>
       </div>
     </div>

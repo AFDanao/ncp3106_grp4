@@ -195,6 +195,18 @@ if (isset($_POST["v"]) && !empty($_POST["v"])) {
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
     }
+
+    .fa {
+      color: #343a40;
+    }
+
+    .nav-link .active {
+      color: #343a40;
+    }
+
+    .nav-link {
+      color: #6c757d;
+    }
   </style>
   <script>
     $(document).ready(function() {
@@ -212,8 +224,8 @@ if (isset($_POST["v"]) && !empty($_POST["v"])) {
               <div class="mt-5 mb-3 clearfix">
                 <h2 class="pull-left">Event Details</h2>
               </div>
-              <ul class="nav nav-tabs">
-                <li class="nav-item">
+              <ul class="nav nav-tabs nav-fill">
+                <li class="nav-item nav-dark">
                   <a href="#events" class="nav-link active" data-bs-toggle="tab">Events</a>
                 </li>
                 <li class="nav-item">
@@ -436,7 +448,7 @@ if (isset($_POST["v"]) && !empty($_POST["v"])) {
                 </div>
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-md-6 my-1"><input type="submit" class="btn btn-primary btn-block" value="Submit" /></div>
+                    <div class="col-md-6 my-1"><input type="submit" class="btn btn-dark btn-block" value="Submit" /></div>
                     <div class="col-md-6 my-1"><a href="../select.php" class="btn btn-secondary btn-block">Cancel</a></div>
                   </div>
                 </div>
