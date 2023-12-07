@@ -82,6 +82,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: transparent;
             border: none;
         }
+
+        .logo-container {
+            text-align: left;
+            margin-bottom: 20px; 
+        }
+        .logo {
+            width: 80px; 
+            height: auto;
+        }
+
     </style>
 </head>
 <body>
@@ -89,6 +99,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="container">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="logo-container">
+                <img src="ue_logo.png" alt="Logo" class="logo">
+            </div>
+
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" placeholder="Enter your username" name="username" required>
