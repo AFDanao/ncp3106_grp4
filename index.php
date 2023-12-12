@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,16 +41,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             width: 100vw;
             height: 100vh;
             position: fixed;
-            z-index: -1; 
+            z-index: -1;
         }
 
         .container {
             width: 350px;
             height: auto;
             padding: 16px;
-            background-color: white;
+            background-color: #FAF9F6;
             border-radius: 10px;
-            z-index: 1; 
+            z-index: 1;
         }
 
         label {
@@ -85,21 +86,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .logo-container {
             text-align: left;
-            margin-bottom: 20px; 
-        }
-        .logo {
-            width: 80px; 
-            height: auto;
+            margin-bottom: 20px;
         }
 
+        .logo {
+            width: 120px;
+            height: auto;
+        }
     </style>
 </head>
+
 <body>
     <div id="engineering-image"></div>
 
     <div class="container">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="logo-container">
+            <div class="logo-container  d-flex justify-content-center">
                 <img src="ue_logo.png" alt="Logo" class="logo">
             </div>
 
@@ -111,7 +113,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-group">
-                    <input type="password" class="form-control" placeholder="Enter your password" name="password" id="password" required>
+                    <input type="password" class="form-control" placeholder="Enter your password" name="password"
+                        id="password" required>
                     <div class="input-group-append">
                         <span class="input-group-text password-eye" onclick="togglePasswordVisibility()">
                             <i id="eye-icon" class="fa fa-eye"></i>
@@ -120,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
 
-            <div class="form-check mt-5">
+            <div class="form-check mt-4">
                 <input type="checkbox" class="form-check-input" name="remember">
                 <label class="form-check-label small-text" for="remember">Remember Me</label>
             </div>
@@ -128,8 +131,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group mt-2">
                 <button type="submit" class="btn btn-dark btn-block">Login</button>
             </div>
-            
-            <span><?php echo $error ?></span>
+
+            <span>
+                <?php echo $error ?>
+            </span>
         </form>
     </div>
 
@@ -151,4 +156,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </script>
 </body>
+
 </html>
