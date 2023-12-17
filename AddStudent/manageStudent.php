@@ -262,7 +262,7 @@ if (isset($_POST['search'])) {
                     echo "<td>" . $row['student_number'] . "</td>";
                     echo "<td>";
                     echo '<a href="manageStudent.php?st=' . $row['student_number'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                    echo '<a href="deleteStudent.php?v=' . $row['student_number'] . '" class="mr-3" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                    echo '<a href="deleteStudent.php?st=' . $row['student_number'] . '" class="mr-3" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                     echo "</td>";
                     echo "</tr>";
                   }

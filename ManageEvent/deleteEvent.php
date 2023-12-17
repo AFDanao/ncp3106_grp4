@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -11,6 +12,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="wrapper">
     <div class="container-fluid">
@@ -32,6 +34,7 @@
     </div>
   </div>
 </body>
+
 </html>
 
 <?php
@@ -48,7 +51,7 @@ if (isset($_POST["v"]) && !empty($_POST["v"])) {
     if ($stmt->execute()) {
       $result = $stmt->get_result();
 
-      if ($result->num_rows==1) {
+      if ($result->num_rows == 1) {
         $row = $result->fetch_array(MYSQLI_ASSOC);
 
         $id = $row['id'];
